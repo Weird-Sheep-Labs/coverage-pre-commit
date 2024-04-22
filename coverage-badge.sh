@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pip install genbadge[coverage] > /dev/null
+pip install genbadge[coverage]==1.1.1 > /dev/null
 
 outfile=coverage-badge.svg
 while getopts o: flag

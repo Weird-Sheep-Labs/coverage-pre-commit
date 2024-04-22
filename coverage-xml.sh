@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pip install coverage > /dev/null
+pip install coverage==7.4.4 > /dev/null
 
 outfile=coverage.xml
 while getopts o: flag
