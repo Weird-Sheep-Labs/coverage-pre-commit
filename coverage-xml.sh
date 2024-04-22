@@ -2,7 +2,7 @@
 
 pip install coverage==7.4.4 > /dev/null
 
-outfile=coverage.xml
+outfile=reports/coverage/coverage.xml
 while getopts o: flag
 do
     case "${flag}" in
