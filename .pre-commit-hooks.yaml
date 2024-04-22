@@ -4,3 +4,10 @@
   entry: coverage-xml.sh
   args: []
   pass_filenames: false
+
+- id: coverage-badge
+  name: coverage-badge
+  language: script
+  entry: coverage-badge.sh
+  args: []
+  pass_filenames: false

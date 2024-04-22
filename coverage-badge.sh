@@ -1,8 +1,8 @@
 #!/bin/bash
 
-pip install coverage > /dev/null
+pip install genbadge[coverage] > /dev/null
 
-outfile=coverage.xml
+outfile=coverage-badge.svg
 while getopts o: flag
 do
     case "${flag}" in
@@ -10,7 +10,7 @@ do
     esac
 done
 
-coverage xml $@
+genbadge coverage $@
 sed -i "" "s/timestamp=\"[0-9]*\"//g" $outfile
 
 if git status -s | awk '/[AM ]M / { print $2 }' | 
