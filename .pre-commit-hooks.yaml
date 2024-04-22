@@ -1,0 +1,6 @@
+- id: coverage-xml
+  name: coverage-xml
+  language: script
+  entry: coverage-xml.sh
+  args: []
+  pass_filenames: false
