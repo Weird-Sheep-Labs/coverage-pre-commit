@@ -11,3 +11,10 @@
   entry: coverage-badge.sh
   args: []
   pass_filenames: false
+
+- id: coverage-test
+  name: coverage-test
+  language: python
+  entry: coverage_test
+  args: []
+  pass_filenames: false
