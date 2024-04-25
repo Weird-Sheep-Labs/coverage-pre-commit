@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "coverage-pre-commit"
+version = "0.0.5"
+description = "pre-commit hooks to generate coverage XML and badge"
+authors = ["Armand Rego <armand@weirdsheeplabs.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [
+    { include = "coverage_pre_commit" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+coverage = "7.4.4"
+genbadge = {version = "1.1.1", extras = ["coverage"]}
+gitpython = "3.1.43"
+
+[tool.poetry.scripts]
+coverage-xml = 'coverage_pre_commit.coverage_xml:main'
+coverage-badge = 'coverage_pre_commit.coverage_badge:main'
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
