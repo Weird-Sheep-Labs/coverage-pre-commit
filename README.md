@@ -46,6 +46,8 @@ This will run the hooks with the default configuration, equivalent to:
 > [!IMPORTANT]  
 > The file paths to the generated XML file and badge must be trackable by git i.e not excluded in `.gitignore`.
 
+## Stages
+
 In order to conform with the behaviour of the vast majority of pre-commit hooks, the tool will run on every available (installed) git hook type. However, in order to prevent frequent failed commits, it may be desirable to [confine the tool execution hook type](https://pre-commit.com/#confining-hooks-to-run-at-certain-stages) to `git push` by adding to each hook:
 
 ```yaml
