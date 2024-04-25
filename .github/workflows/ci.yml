@@ -7,7 +7,7 @@ on:
       - main
 
 jobs:
-  production-deploy:
+  release:
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/heads/release')
     steps:
@@ -22,27 +22,7 @@ jobs:
           git config --global user.name "github-actions"
       - name: Git tag
         run: |
-          pip install semver
+          . install_poetry.sh
           export VERSION=$(poetry version -s)
           git tag -a $VERSION -m "$VERSION release"
           git push origin --tags
-  staging-deploy:
-    runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/heads/prerelease')
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - name: Configure Git
-        run: |
-          git config --global user.email "github-actions@github.com"
-          git config --global user.name "github-actions"
-      - name: Deploy to PyPi
-        run: |
-          . install_poetry.sh
-          poetry version prerelease
-          poetry publish --build -u ${{ secrets.PYPI_USERNAME}} -p ${{ secrets.PYPI_PASSWORD }}
-          git commit -a -m "Prerelease bumped version [skip ci]"
-          git push

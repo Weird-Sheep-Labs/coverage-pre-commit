@@ -4,7 +4,7 @@ import re
 import subprocess
 from uuid import uuid4
 
-from git.cmd import Git
+from .utils import check_if_modified, make_target_dir
 
 
 def main():
@@ -14,29 +14,21 @@ def main():
     args = parser.parse_args()
 
     # Output file path either default or user override
-    output_filepath = args.o or "reports/coverage/coverage.xml"
+    output_dir, output_filepath = make_target_dir(
+        args.o or "reports/coverage/coverage.xml"
+    )
 
     # Write coverage XML report to tmp location
-    tmp_filepath = f"coverage_pre_commit-{uuid4()}.xml"
+    tmp_filename = f"coverage_pre_commit-{uuid4()}.xml"
+    tmp_filepath = os.path.join(output_dir, tmp_filename)
     subprocess.check_output(["coverage", "xml", "-o", tmp_filepath])
 
     # Remove timestamp to avoid unnecessary diffs and write to correct location
-    output_file = open(output_filepath, mode="r+")
+    output_file = open(output_filepath, mode="w+")
     for line in open(tmp_filepath):
         output_file.write(re.sub(pattern=r"timestamp=\"[0-9]*\"", repl="", string=line))
+    output_file.close()
     os.remove(tmp_filepath)
 
-    # Exits non-zero if generated file has unstaged changes or is
-    # untracked (initial creation)
-    g = Git()
-    for line in g.status("-s").split("\n"):
-        print(line)
-        if re.match(r"[AM ]M ", line):
-            if output_filepath in line:
-                print(f"Modified XML report at {output_filepath}.")
-                exit(1)
-
-    for line in g.ls_files("--others", "--exclude-standard").split("\n"):
-        if output_filepath in line:
-            print(f"Created XML report at {output_filepath}.")
-            exit(1)
+    # Handle git checks
+    check_if_modified(output_filepath, "xml")
