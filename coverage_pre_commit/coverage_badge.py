@@ -1,6 +1,7 @@
 import argparse
 import os
 import subprocess
+import sys
 
 from .utils import check_if_modified, make_target_dir
 
@@ -21,7 +22,7 @@ def main():
     # Check input file location is valid and exit 1 if not
     if not os.path.exists(input_filepath):
         print(f"Could not find coverage report: {input_filepath}.")
-        exit(1)
+        sys.exit(1)
 
     # Generate coverage badge
     subprocess.check_output(

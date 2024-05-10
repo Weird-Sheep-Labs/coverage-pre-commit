@@ -1,5 +1,6 @@
 import os
 import re
+import sys
 from typing import Literal
 
 from git.cmd import Git
@@ -31,9 +32,9 @@ def check_if_modified(output_filepath: str, entity: Literal["xml", "badge"]):
         if re.match(r"[AM ]M ", line):
             if output_filepath in line:
                 print(f"Modified {error_msg_value[entity]} at {output_filepath}.")
-                exit(1)
+                sys.exit(1)
 
     for line in g.ls_files("--others", "--exclude-standard").split("\n"):
         if output_filepath in line:
             print(f"Created {error_msg_value[entity]} at {output_filepath}.")
-            exit(1)
+            sys.exit(1)
