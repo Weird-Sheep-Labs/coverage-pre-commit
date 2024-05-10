@@ -28,7 +28,7 @@ Add the following to your `.pre-commit-config.yaml` file:
 
 ```yaml
 - repo: https://github.com/Weird-Sheep-Labs/coverage-pre-commit
-    rev: 0.0.4
+    rev: 0.1.1
     hooks:
       - id: coverage-xml
       - id: coverage-badge
@@ -38,7 +38,7 @@ This will run the hooks with the default configuration, equivalent to:
 
 ```yaml
 - repo: https://github.com/Weird-Sheep-Labs/coverage-pre-commit
-    rev: 0.0.4
+    rev: 0.1.1
     hooks:
       - id: coverage-xml
         args: ["-o", "reports/coverage/coverage.xml"]

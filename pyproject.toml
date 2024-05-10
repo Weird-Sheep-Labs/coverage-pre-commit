@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "coverage-pre-commit"
-version = "0.1.0"
+version = "0.1.1"
 description = "pre-commit hooks to generate coverage XML and badge"
 authors = ["Armand Rego <armand@weirdsheeplabs.com>"]
 license = "MIT"
